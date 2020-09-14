@@ -34,10 +34,10 @@ Here's how I installed worker nodes to build a multi-node Kubernetes cluster whe
 x.x.x.x is the IP address of the first node installed (as a master):
 
 ```
-curl -sfL https://get.k3s.io | \
-  K3S_URL=https://x.x.x.x:6443 \
-  K3S_TOKEN=$(cat /var/lib/rancher/k3s/server/node-token) \
-  INSTALL_K3S_VERSION=v1.16.14+k3s1 sh -
+# On master node do this to get the value of the "K3S_TOKEN".
+#
+cat /var/lib/rancher/k3s/server/node-token
+curl -sfL https://get.k3s.io | K3S_URL=https://x.x.x.x:6443 K3S_TOKEN=token INSTALL_K3S_VERSION=v1.16.14+k3s1 sh -
 ```
 
 Installing workers is documented [here](https://rancher.com/docs/k3s/latest/en/quick-start/).
