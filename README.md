@@ -30,6 +30,18 @@ and got a legal version string (e.g., "v1.16.14+k3s1") by looking at the
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.16.14+k3s1 sh -
 ```
 
+Here's how I installed worker nodes to build a multi-node Kubernetes cluster where
+x.x.x.x is the IP address of the first node installed (as a master):
+
+```
+curl -sfL https://get.k3s.io | \
+  K3S_URL=https://x.x.x.x:6443 \
+  K3S_TOKEN=$(cat /var/lib/rancher/k3s/server/node-token) \
+  INSTALL_K3S_VERSION=v1.16.14+k3s1 sh -
+```
+
+Installing workers is documented [here](https://rancher.com/docs/k3s/latest/en/quick-start/).
+
 Maybe 30 seconds later …
 
 ```
@@ -37,6 +49,16 @@ root@dperiquet-vsi1:/home/dperiquet# export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 root@dperiquet-vsi1:/home/dperiquet# kubectl get no
 NAME             STATUS   ROLES    AGE   VERSION
 dperiquet-vsi1   Ready    master   44s   v1.18.4+k3s1
+```
+
+If you installed two workers, the output will look like this:
+
+```
+dperiquet@dperiquet-vsi4:~$ kubectl  get no
+NAME             STATUS   ROLES    AGE     VERSION
+dperiquet-vsi6   Ready    <none>   64s     v1.16.14+k3s1
+dperiquet-vsi4   Ready    master   108m    v1.16.14+k3s1
+dperiquet-vsi2   Ready    <none>   2m40s   v1.16.14+k3s1
 ```
 
 Get back to being my user:
