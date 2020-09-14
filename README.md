@@ -21,6 +21,15 @@ sudo su
 curl -sfL https://get.k3s.io | sh -
 ```
 
+Here's how I installed a specific version.  I got the environment variable from
+[here](https://rancher.com/docs/k3s/latest/en/upgrades/basic/)
+and got a legal version string (e.g., "v1.16.14+k3s1") by looking at the
+[releases page](https://github.com/rancher/k3s/releases).
+
+```
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.16.14+k3s1 sh -
+```
+
 Maybe 30 seconds later …
 
 ```
